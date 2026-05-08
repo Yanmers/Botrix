@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Botrix.Models.ResponseRule>
+@{
+    ViewData["Title"] = "Respuestas Automáticas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white text-center">
+                    <h3>@ViewData["Title"]</h3>
+                </div>
+                <div class="card-body">
+
+                    <table class="table table-hover text-center">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Keyword</th>
+                                <th>Respuesta</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var rule in Model)
+                            {
+                                <tr>
+                                    <td>@rule.Keyword</td>
+                                    <td>@rule.Answer</td>
+                                    <td>
+                                        <form asp-action="Delete" method="post" class="d-inline">
+                                            <input type="hidden" name="keyword" value="@rule.Keyword" />
+                                            <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                    <hr />
+
+                    <h4 class="text-center mt-4">Agregar nueva regla</h4>
+                    <form asp-action="Create" method="post" class="mt-3">
+                        <div class="mb-3">
+                            <label class="form-label">Keyword</label>
+                            <input type="text" name="Keyword" class="form-control" required />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Respuesta</label>
+                            <textarea name="Answer" class="form-control" rows="3" required></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-success">Agregar</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
